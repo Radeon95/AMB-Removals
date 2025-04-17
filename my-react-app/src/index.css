@@ -1,0 +1,111 @@
+:root {
+  font-family: "Roboto", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #333;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #409eff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #79bbff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2.5em;
+  line-height: 1.2;
+  margin: 0 0 20px 0;
+}
+
+h2 {
+  font-size: 2em;
+  line-height: 1.2;
+  margin: 0 0 15px 0;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1.2;
+  margin: 0 0 10px 0;
+}
+
+p {
+  margin: 0 0 15px 0;
+}
+
+button {
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+button:hover {
+  border-color: #409eff;
+  color: #409eff;
+}
+button:focus,
+button:focus-visible {
+  outline: 2px solid #409eff;
+}
+
+#app {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Общие стили для секций */
+.section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #303133;
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.3em;
+  }
+}

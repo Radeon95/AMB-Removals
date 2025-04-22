@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Link,
   Routes,
@@ -11,9 +11,9 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import Home from "./views/Home";
 // import About from "./pages/About";
-// import Contact from "./pages/Contact";
+import Contact from "./views/Contact";
 // import Quote from "./pages/Quote";
-// import Gallery from "./components/Gallery";
+import Gallery from "./views/Gallery";
 
 import "./App.css";
 
@@ -39,6 +39,9 @@ const App = () => {
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "auto";
+  }, [isMobileMenuOpen]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -57,10 +60,7 @@ const App = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const handleNavClick = (path: string) => {
-    navigate(path);
-    setIsMobileMenuOpen(false);
-  };
+  // Removed unused handleNavClick function
 
   return (
     <HelmetProvider>
@@ -102,9 +102,9 @@ const App = () => {
               </Link>
               <Link
                 className={`el-menu-item ${
-                  location.pathname === "/galery" ? "is-active" : ""
+                  location.pathname === "/gallery" ? "is-active" : ""
                 }`}
-                to="/galery"
+                to="/gallery"
               >
                 Gallery
               </Link>
@@ -136,42 +136,40 @@ const App = () => {
           </div>
         </header>
 
-        {isMobileMenuOpen && (
-          <div className="mobile-menu-overlay">
-            <div className="mobile-menu open">
-              <Link to="/" onClick={() => handleNavClick("/")}>
-                Home
-              </Link>
-              <Link to="/galery" onClick={() => handleNavClick("/galery")}>
-                Gallery
-              </Link>
-              <Link to="/about" onClick={() => handleNavClick("/about")}>
-                About Us
-              </Link>
-              <Link to="/contact" onClick={() => handleNavClick("/contact")}>
-                Contact
-              </Link>
-              <Link to="/quote" onClick={() => handleNavClick("/quote")}>
-                Request Quote
-              </Link>
-            </div>
+        {/* ✅ INSERT THIS BLOCK RIGHT HERE */}
+        <div
+          className={`mobile-menu-overlay ${isMobileMenuOpen ? "open" : ""}`}
+        >
+          <div className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}>
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+              Home
+            </Link>
+            <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)}>
+              Gallery
+            </Link>
+            <Link to="/quote" onClick={() => setIsMobileMenuOpen(false)}>
+              Quote
+            </Link>
+            <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+              Contact
+            </Link>
           </div>
-        )}
+        </div>
 
         <main className="el-main">
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/about" element={<About />} />
+            {/* <Route path="/about" element={<About />} /> */}
             <Route path="/contact" element={<Contact />} />
-            <Route path="/quote" element={<Quote />} />
-            <Route path="/galery" element={<Gallery />} /> */}
+            {/* <Route path="/quote" element={<Quote />} /> */}
+            <Route path="/gallery" element={<Gallery />} />
           </Routes>
           <button onClick={scrollToTop} className="scroll-to-top">
             <i className="fas fa-arrow-up" />
           </button>
         </main>
 
-        <footer className="el-footer">
+        <footer className="el-footer app-footer">
           <div className="footer-content">
             <div className="footer-info">
               <h3>AMB Removals Limited</h3>
@@ -230,7 +228,7 @@ const App = () => {
                   <span onClick={() => navigate("/contact")}>Contact</span>
                 </li>
                 <li>
-                  <span onClick={() => navigate("/galery")}>Gallery</span>
+                  <span onClick={() => navigate("/gallery")}>Gallery</span>
                 </li>
                 <li>
                   <span onClick={() => navigate("/quote")}>Get a Quote</span>

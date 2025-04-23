@@ -199,7 +199,7 @@
 
 /* ===== Map & FAQ ===== */
 .map-section {
-  padding: 0 0 60px 0;
+  padding: 0 0 0 0;
 }
 
 .map-container {
@@ -217,7 +217,7 @@
 .faq-question {
   font-size: 22px;
   font-weight: 600;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
 }
 
 .faq-answer {
@@ -258,5 +258,49 @@
 
   .contact-info {
     margin-bottom: 30px;
+  }
+}
+
+.faq-section {
+  padding: 40px 20px;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.faq-item:hover {
+  background-color: #f7f7f7;
+}
+
+.faq-question {
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-answer {
+  padding-top: 10px;
+  color: #555;
+  line-height: 1.6;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -10,9 +10,9 @@ import {
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import Home from "./views/Home";
-// import About from "./pages/About";
+import About from "./views/About";
 import Contact from "./views/Contact";
-// import Quote from "./pages/Quote";
+import Quote from "./views/Quote";
 import Gallery from "./views/Gallery";
 
 import "./App.css";
@@ -147,6 +147,9 @@ const App = () => {
             <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)}>
               Gallery
             </Link>
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
+              About Us
+            </Link>
             <Link to="/quote" onClick={() => setIsMobileMenuOpen(false)}>
               Quote
             </Link>
@@ -159,9 +162,9 @@ const App = () => {
         <main className="el-main">
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/about" element={<About />} /> */}
+            <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            {/* <Route path="/quote" element={<Quote />} /> */}
+            <Route path="/quote" element={<Quote />} />
             <Route path="/gallery" element={<Gallery />} />
           </Routes>
           <button onClick={scrollToTop} className="scroll-to-top">

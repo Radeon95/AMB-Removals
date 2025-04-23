@@ -9,6 +9,8 @@ declare global {
 }
 import { Helmet } from "react-helmet-async";
 import "../style/Contact.css";
+import "./FaqSection";
+import FaqSection from "./FaqSection";
 
 const initialFormState = {
   name: "",
@@ -31,6 +33,7 @@ const Contact: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [recaptchaToken, setRecaptchaToken] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  // default to open first FAQ
 
   // reCAPTCHA Setup
   useEffect(() => {
@@ -131,6 +134,23 @@ const Contact: React.FC = () => {
       console.error(err);
     }
   };
+  //   const faqItems = [
+  //     {
+  //       question: "How quickly can you organize a move?",
+  //       answer:
+  //         "Depending on the complexity and volume of work, we can organize a move within 1–3 days from the order confirmation.",
+  //     },
+  //     {
+  //       question: "Do you work on weekends and holidays?",
+  //       answer:
+  //         "Yes, we work without days off, including holidays. However, a surcharge may apply on holidays.",
+  //     },
+  //     {
+  //       question: "Do you provide guarantees for your services?",
+  //       answer:
+  //         "Yes, we provide guarantees for all our services. In case of damage to items during the move, we compensate for the damage according to the contract.",
+  //     },
+  //   ];
 
   return (
     <>
@@ -349,37 +369,7 @@ const Contact: React.FC = () => {
             ></iframe>
           </div>
         </div>
-        <div className="section faq-section">
-          <h2 className="section-title">Frequently Asked Questions</h2>
-          <div className="faq-item">
-            <div className="faq-question">
-              How quickly can you organize a move?
-            </div>
-            <div className="faq-answer">
-              Depending on the complexity and volume of work, we can organize a
-              move within 1–3 days from the order confirmation.
-            </div>
-          </div>
-          <div className="faq-item">
-            <div className="faq-question">
-              Do you work on weekends and holidays?
-            </div>
-            <div className="faq-answer">
-              Yes, we work without days off, including holidays. However, a
-              surcharge may apply on holidays.
-            </div>
-          </div>
-          <div className="faq-item">
-            <div className="faq-question">
-              Do you provide guarantees for your services?
-            </div>
-            <div className="faq-answer">
-              Yes, we provide guarantees for all our services. In case of damage
-              to items during the move, we compensate for the damage according
-              to the contract.
-            </div>
-          </div>
-        </div>
+        <FaqSection />
       </div>
     </>
   );

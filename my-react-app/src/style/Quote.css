@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --color-main: #f9f9f9;
+  --color-label: #2f2f2f;
+  --color-border: #cfcfcf;
+  --color-highlight: #e3d385;
+  --color-error: #f56c6c;
+  --color-placeholder: #a9a9a9;
+}
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+  background-color: var(--color-main);
+  margin: 0;
+  padding: 0;
+}
+
+.quote-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.introImage {
+  background-image: url("../assets/Removals_quotation.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.introImage h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-block h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-label);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-label);
+}
+
+/* Custom Input Wrapper */
+.input,
+.selection,
+.input1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animated underline effect */
+.input input,
+.input1 textarea,
+.selection select {
+  border: 8px solid var(--color-border);
+  border-radius: 15px;
+
+  background: transparent;
+  font-size: 1rem;
+  padding: 8px 0;
+  /* transition: all 0.3s ease; */
+  color: var(--color-label);
+  outline: none;
+}
+
+.input input:focus,
+.input1 textarea:focus,
+.selection select:focus {
+  border-color: var(--color-highlight);
+}
+
+.input span,
+.input1 span,
+.selection span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-highlight);
+  /* transition: width 0.3s ease; */
+}
+
+.input input:focus + span,
+.input1 textarea:focus + span,
+.selection select:focus + span {
+  width: 100%;
+}
+
+/* Textarea specific */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 2px solid var(--color-border);
+}
+
+input::placeholder,
+textarea::placeholder,
+select {
+  color: #000000;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.form-group.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: var(--color-label);
+  justify-content: center;
+}
+
+.error {
+  font-size: 0.85rem;
+  color: var(--color-error);
+  margin-top: 0.25rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+button[type="submit"] {
+  background-color: var(--color-highlight);
+  color: #333;
+  padding: 10px 24px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #dfcb5e;
+}
+
+@media (max-width: 768px) {
+  .quote-container {
+    padding: 1rem;
+  }
+
+  .introImage {
+    height: 45vh;
+    margin-top: 7rem;
+  }
+
+  .introImage h2 {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+  }
+}

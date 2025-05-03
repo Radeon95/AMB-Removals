@@ -12,8 +12,11 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static files from the React app (dist folder after build)
-app.use(express.static(path.join(__dirname, "dist")));
+// Because we're running from my-react-app/ and dist is also inside my-react-app/
+const distPath = path.join(__dirname, "dist");
+
+// Serve static files
+app.use(express.static(distPath));
 
 // API route to receive form data and save it
 app.post("/submit-quote", (req, res) => {
@@ -44,12 +47,12 @@ app.post("/submit-quote", (req, res) => {
   );
 });
 
-// ✅ Updated wildcard route (modern Express safe)
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+// For all other routes, serve index.html (for React Router SPA)
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
 });
 
-// Use dynamic port for production or 5050 for local dev
+// Start server
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -11,12 +11,13 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const distPath = path.join(__dirname, "dist");
+// 👇 this MUST find the correct "dist" folder location
+const distPath = path.join(__dirname, "./dist");
 
-// Serve static files FIRST
+// Serve static files
 app.use(express.static(distPath));
 
-// API route
+// API route to receive the form
 app.post("/submit-quote", (req, res) => {
   const formData = req.body;
   const filename = `quote-${
@@ -24,7 +25,6 @@ app.post("/submit-quote", (req, res) => {
   }-${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
 
   const formsDir = path.join(__dirname, "forms");
-
   if (!fs.existsSync(formsDir)) {
     fs.mkdirSync(formsDir);
   }
@@ -44,11 +44,12 @@ app.post("/submit-quote", (req, res) => {
   );
 });
 
-// 🟢 SAFER CATCH-ALL FOR REACT ROUTER:
-app.get("*", function (req, res) {
-  res.sendFile(path.resolve(distPath, "index.html"));
+// ✅ Correct catch-all handler
+app.get("*", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
 });
 
+// Dynamic PORT for Render
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

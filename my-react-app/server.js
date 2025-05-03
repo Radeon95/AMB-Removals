@@ -1,48 +1,56 @@
-import express, { json } from "express";
-import { existsSync, mkdirSync, writeFile } from "fs";
-import { join } from "path";
+import express from "express";
 import cors from "cors";
-import { dirname } from "path";
+import fs from "fs";
+import path from "path";
 import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 const app = express();
-app.use(json());
-app.use(
-  cors({
-    origin: "*",
-  })
-); // Allow requests from React dev server
+app.use(cors());
+app.use(express.json());
 
-app.post("/save-quote", (req, res) => {
+// Helper to get __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the React app (dist folder after build)
+app.use(express.static(path.join(__dirname, "dist")));
+
+// API route to receive form data and save it
+app.post("/submit-quote", (req, res) => {
   const formData = req.body;
+  const filename = `quote-${
+    formData.name?.replace(/\s+/g, "_") || "anonymous"
+  }-${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
 
-  const safeName = formData.name
-    ? formData.name.replace(/\s+/g, "-").toLowerCase()
-    : "anonymous";
+  const formsDir = path.join(__dirname, "forms");
 
-  const date = new Date().toISOString().slice(0, 10);
-  const filename = `quote-${safeName}-${date}.json`;
-
-  const formsDir = join(__dirname, "forms");
-  if (!existsSync(formsDir)) {
-    mkdirSync(formsDir);
+  // Create forms folder if not exists
+  if (!fs.existsSync(formsDir)) {
+    fs.mkdirSync(formsDir);
   }
 
-  const filePath = join(formsDir, filename);
-
-  writeFile(filePath, JSON.stringify(formData, null, 2), (err) => {
-    if (err) {
-      console.error("Error writing file", err);
-      return res.status(500).json({ message: "Failed to save file." });
+  fs.writeFile(
+    path.join(formsDir, filename),
+    JSON.stringify(formData, null, 2),
+    (err) => {
+      if (err) {
+        console.error("Failed to save the form:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to save the form." });
+      }
+      res.json({ success: true, message: "Form submitted successfully!" });
     }
-    res.json({ message: "File saved successfully.", filename });
-  });
+  );
 });
 
-const PORT = 5050;
+// For any other route, serve React's index.html (supporting React Router)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
+// Use dynamic port for production or 5050 for local dev
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

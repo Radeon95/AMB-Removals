@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import "../style/Quote.css";
+import { Helmet } from "react-helmet-async";
 
 const propertyTypes = [
   "House",
@@ -29,7 +30,6 @@ const Quote: React.FC = () => {
     toPropertyType: "",
     moveDate: "",
     message: "",
-    agreement: false,
     consent: false,
     package: "",
     details: "",
@@ -37,6 +37,8 @@ const Quote: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const formRef = useRef<HTMLFormElement>(null);
+  const [message, setMessage] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   const personalFields = [
     {
@@ -95,19 +97,142 @@ const Quote: React.FC = () => {
     }));
   };
 
+  const resetForm = () => {
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      fromPostcode: "",
+      fromAddress: "",
+      fromCity: "",
+      fromPropertyType: "",
+      toPostcode: "",
+      toAddress: "",
+      toCity: "",
+      toPropertyType: "",
+      moveDate: "",
+      message: "",
+      consent: false,
+      package: "",
+      details: "",
+    });
+    setErrors({});
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return alert("Please fill all required fields.");
-    console.log("Form Submitted", form);
-    alert("Quote submitted!");
+    if (!validate()) {
+      setMessage("Please fill all required fields.");
+      setIsSuccess(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5050/save-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setMessage(`Quote submitted and saved as ${result.filename}`);
+        setIsSuccess(true);
+        resetForm();
+      } else {
+        setMessage(result.message || "Error saving the file.");
+        setIsSuccess(false);
+      }
+    } catch (err) {
+      console.error("Submit failed", err);
+      setMessage("Error connecting to server.");
+      setIsSuccess(false);
+    }
+
+    // Hide message after 3 seconds
+    setTimeout(() => setMessage(null), 3000);
   };
 
   return (
     <>
+      <Helmet>
+        <title>Request a Moving Quote - AMB Removals</title>
+        <meta
+          name="description"
+          content="Get a personalized quote for your home or office move with AMB Removals."
+        />
+        <meta
+          property="og:title"
+          content="Request a Moving Quote - AMB Removals"
+        />
+        <meta
+          property="og:description"
+          content="Fill out our form to receive a tailored quote for your relocation needs."
+        />
+        <meta
+          property="og:image"
+          content="https://yourdomain.com/images/social-share.jpg"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/quote" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Request a Moving Quote - AMB Removals"
+        />
+        <meta
+          name="twitter:description"
+          content="Fill out our form to receive a tailored quote for your relocation needs."
+        />
+        <meta
+          name="twitter:image"
+          content="https://yourdomain.com/images/social-share.jpg"
+        />
+        <link rel="canonical" href="https://yourdomain.com/quote" />
+
+        <script type="application/ld+json">
+          {`
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Moving Service Quote Request",
+      "provider": {
+        "@type": "MovingCompany",
+        "name": "AMB Removals Limited",
+        "url": "https://yourdomain.com"
+      }
+    }
+    `}
+        </script>
+      </Helmet>
+      <a
+        href="https://wa.me/447853451275"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-button whatsapp-float sticky no-text"
+      >
+        <i className="fa-brands fa-whatsapp"></i>
+      </a>
+
+      <a
+        href="https://t.me/YourTelegramUsername"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-button telegram-float sticky no-text"
+      >
+        <i className="fa-brands fa-telegram"></i>
+      </a>
+
       <div className="introImage">
         <h2>About Your Move...</h2>
       </div>
       <div className="quote-container">
+        {message && (
+          <div className={`popup-message ${isSuccess ? "success" : "error"}`}>
+            {message}
+          </div>
+        )}
         <form
           ref={formRef}
           onSubmit={handleSubmit}

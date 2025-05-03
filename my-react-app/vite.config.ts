@@ -1,7 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import compression from "vite-plugin-compression";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  plugins: [
+    react(),
+    compression({
+      algorithm: "brotliCompress", // Use Brotli if possible
+      ext: ".br",
+      deleteOriginFile: false,
+    }),
+    compression({
+      algorithm: "gzip",
+      ext: ".gz",
+      deleteOriginFile: false,
+    }),
+  ],
+});

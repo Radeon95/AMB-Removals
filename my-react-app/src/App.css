@@ -104,6 +104,36 @@
   min-width: 200px;
 }
 
+.footer-nav a {
+  position: relative;
+  cursor: pointer;
+  color: bisque;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  text-decoration: none;
+}
+.footer-nav a:hover {
+  color: bisque;
+}
+
+.footer-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+
+  background-color: #007bff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.footer-nav a:hover::after {
+  width: 100%;
+}
+
 .footer-nav h4 {
   margin-bottom: -1px;
 }
@@ -171,7 +201,7 @@
   color: #545c64;
 } */
 
-@media (min-width: 768px) and (max-width: 1363px) {
+@media (min-width: 768px) and (max-width: 1500px) {
   .header-inner .logo {
     all: unset;
     /* margin-left: 30%; */
@@ -518,4 +548,52 @@
 
 .app-footer .social-links a:hover {
   color: #007bff;
+}
+
+.whatsapp-header-button {
+  position: absolute;
+  top: 6px;
+  right: 20rem;
+  background-color: #cdbe22;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  z-index: 999;
+  transition: background-color 0.3s ease;
+}
+.whatsapp-header-button:hover {
+  color: #333;
+}
+
+.whatsapp-header-button i {
+  font-size: 18px;
+}
+
+.whatsapp-header-button:hover {
+  background-color: #1ebe57;
+}
+
+/* ✅ Responsive for mobile */
+@media (max-width: 768px) {
+  .whatsapp-header-button {
+    top: 5vh;
+    left: 10px;
+    right: auto;
+    padding: 8px 4px;
+    font-size: 13px;
+  }
+}
+@media (min-width: 768px) and (max-width: 768px) {
+  .whatsapp-header-button {
+    top: 3rem;
+    left: 20rem;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
 }

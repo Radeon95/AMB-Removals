@@ -155,21 +155,62 @@ const Contact: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Us - Get a Free Quote</title>
+        <title>Contact AMB Removals</title>
         <meta
           name="description"
-          content="Need help with moving? Contact us for a free consultation and see how we can assist you."
+          content="Get in touch with AMB Removals for any inquiries about your move."
         />
-        <meta property="og:title" content="Contact Us - Get a Free Quote" />
+        <meta property="og:title" content="Contact AMB Removals" />
         <meta
           property="og:description"
-          content="Need help with moving? Contact us for a free consultation and see how we can assist you."
+          content="We're here to help with all your moving needs."
         />
         <meta
           property="og:image"
-          content="https://ambremovals.com/images/AMB_Removals.jpg"
+          content="https://yourdomain.com/images/social-share.jpg"
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/contact" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact AMB Removals" />
+        <meta
+          name="twitter:description"
+          content="We're here to help with all your moving needs."
+        />
+        <meta
+          name="twitter:image"
+          content="https://yourdomain.com/images/social-share.jpg"
+        />
+        <link rel="canonical" href="https://yourdomain.com/contact" />
+
+        <script type="application/ld+json">
+          {`
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "url": "https://yourdomain.com/contact",
+      "contactType": "Customer Support"
+    }
+    `}
+        </script>
       </Helmet>
+      <a
+        href="https://wa.me/447853451275"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-button whatsapp-float sticky no-text"
+      >
+        <i className="fa-brands fa-whatsapp"></i>
+      </a>
+
+      <a
+        href="https://t.me/YourTelegramUsername"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-button telegram-float sticky no-text"
+      >
+        <i className="fa-brands fa-telegram"></i>
+      </a>
 
       <div className="contact-container">
         <div className="contact-banner">

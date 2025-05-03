@@ -19,21 +19,60 @@ const partnerAltTexts = [
 const About = () => {
   return (
     <div className="about-page">
+      <a
+        href="https://wa.me/447853451275"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-button whatsapp-float sticky no-text"
+      >
+        <i className="fa-brands fa-whatsapp"></i>
+      </a>
+
+      <a
+        href="https://t.me/YourTelegramUsername"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="floating-button telegram-float sticky no-text"
+      >
+        <i className="fa-brands fa-telegram"></i>
+      </a>
       <Helmet>
+        <title>About Us - AMB Removals</title>
+        <meta
+          name="description"
+          content="Learn more about AMB Removals, your trusted moving company."
+        />
+        <meta property="og:title" content="About Us - AMB Removals" />
+        <meta
+          property="og:description"
+          content="Discover why AMB Removals is the right choice for your move."
+        />
+        <meta
+          property="og:image"
+          content="https://yourdomain.com/images/social-share.jpg"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/about" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Us - AMB Removals" />
+        <meta
+          name="twitter:description"
+          content="Discover why AMB Removals is the right choice for your move."
+        />
+        <meta
+          name="twitter:image"
+          content="https://yourdomain.com/images/social-share.jpg"
+        />
+        <link rel="canonical" href="https://yourdomain.com/about" />
+
         <script type="application/ld+json">
           {`
-      {
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "name": "AMB Removals",
-        "url": "https://ambremovals.com",
-        "logo": "https://ambremovals.com/images/AMB_Removals.jpg",
-        "sameAs": [
-          "https://www.facebook.com/ambremovalslimited",
-          "https://www.instagram.com/ambremovals"
-        ],
-        "description": "Family-run removal company in Leicester, UK offering personal, reliable, and fully insured moving services."
-      }
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About AMB Removals",
+      "url": "https://yourdomain.com/about"
+    }
     `}
         </script>
       </Helmet>

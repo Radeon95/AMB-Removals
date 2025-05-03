@@ -14,6 +14,9 @@ import About from "./views/About";
 import Contact from "./views/Contact";
 import Quote from "./views/Quote";
 import Gallery from "./views/Gallery";
+import NotFound from "./views/404";
+import BlogHome from "./views/BlogHome";
+import BlogPost from "./views/BlogPost";
 
 import "./App.css";
 
@@ -82,6 +85,14 @@ const App = () => {
                 />
               </Link>
             </div>
+            <a
+              href="https://wa.me/447853451275"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whatsapp-header-button"
+            >
+              <i className="fa-brands fa-whatsapp"></i> WhatsApp Us
+            </a>
             <button
               onClick={toggleMenu}
               className="mobile-menu-toggle"
@@ -132,6 +143,14 @@ const App = () => {
               >
                 Request Quote
               </Link>
+              <Link
+                className={`el-menu-item ${
+                  location.pathname === "/blog" ? "is-active" : ""
+                }`}
+                to="/blog"
+              >
+                Blog
+              </Link>
             </nav>
           </div>
         </header>
@@ -156,6 +175,9 @@ const App = () => {
             <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
               Contact
             </Link>
+            <Link to="/blog" onClick={() => setIsMobileMenuOpen(false)}>
+              Blog
+            </Link>
           </div>
         </div>
 
@@ -166,6 +188,9 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/quote" element={<Quote />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/blog" element={<BlogHome />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
           </Routes>
           <button onClick={scrollToTop} className="scroll-to-top">
             <i className="fas fa-arrow-up" />
@@ -222,19 +247,29 @@ const App = () => {
               <h4>Navigation</h4>
               <ul>
                 <li>
-                  <span onClick={() => navigate("/")}>Home</span>
+                  <a>
+                    <span onClick={() => navigate("/")}>Home</span>
+                  </a>
                 </li>
                 <li>
-                  <span onClick={() => navigate("/about")}>About Us</span>
+                  <a>
+                    <span onClick={() => navigate("/about")}>About Us</span>
+                  </a>
                 </li>
                 <li>
-                  <span onClick={() => navigate("/contact")}>Contact</span>
+                  <a>
+                    <span onClick={() => navigate("/contact")}>Contact</span>
+                  </a>
                 </li>
                 <li>
-                  <span onClick={() => navigate("/gallery")}>Gallery</span>
+                  <a>
+                    <span onClick={() => navigate("/gallery")}>Gallery</span>
+                  </a>
                 </li>
                 <li>
-                  <span onClick={() => navigate("/quote")}>Get a Quote</span>
+                  <a>
+                    <span onClick={() => navigate("/quote")}>Get a Quote</span>
+                  </a>
                 </li>
               </ul>
             </div>

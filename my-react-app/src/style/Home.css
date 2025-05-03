@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: bisque;
 }
 
 .hero-content {
@@ -294,4 +294,174 @@
 }
 .service-card {
   align-self: flex-start;
+}
+
+.gallery-image {
+  background-color: #eee;
+  min-height: 200px; /* prevent layout shift */
+}
+
+.thumbnail {
+  background-color: #ddd;
+  min-height: 80px;
+}
+
+/* From here */
+
+.floating-button i {
+  font-size: 14px;
+}
+
+.floating-button:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float {
+  right: 10rem;
+  background-color: #25d366;
+}
+
+.telegram-float {
+  left: 10rem;
+  background-color: #0088cc;
+}
+
+.floating-button {
+  top: 75vh;
+  position: absolute;
+  background-color: #cdbe22;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  z-index: 999;
+  transition: all 0.5s ease, background-color 0.3s ease;
+}
+
+.floating-button i {
+  font-size: 18px;
+  transition: transform 0.5s ease;
+}
+
+.floating-button .button-text {
+  margin-left: 8px;
+  transition: opacity 0.5s ease, margin-left 0.5s ease;
+  white-space: nowrap;
+}
+
+.whatsapp-float {
+  right: 10rem;
+  background-color: #25d366;
+}
+
+.telegram-float {
+  left: 10rem;
+  background-color: #0088cc;
+}
+
+/* Responsive positions */
+@media (max-width: 768px) {
+  .floating-button {
+    top: 83vh;
+    width: auto;
+    height: 2rem;
+    padding: 6px 12px;
+    border-radius: 25px;
+    font-size: 16px;
+    bottom: 15px;
+  }
+  .whatsapp-float {
+    right: 2rem;
+    background-color: #25d366;
+  }
+
+  .telegram-float {
+    left: 2rem;
+    background-color: #0088cc;
+  }
+}
+
+/* --- WHEN SCROLLING (sticky) --- */
+
+.floating-button.sticky {
+  animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+
+  position: fixed;
+  bottom: 10rem;
+  border-radius: 100%;
+  padding: 25px;
+  height: 1rem;
+  font-size: 25px;
+  top: auto; /* override top */
+  transition: all 2s ease;
+}
+@keyframes pulsing {
+  100% {
+    box-shadow: 0 0 0 30px rgba(232, 76, 61, 0);
+  }
+}
+@media (max-width: 768px) {
+  @keyframes pulsing {
+    100% {
+      box-shadow: 0 0 0 15px rgba(232, 76, 61, 0);
+    }
+  }
+}
+
+.whatsapp-float.sticky {
+  box-shadow: rgba(66, 219, 135, 1) 0px 0px 0px 0.00811595px;
+  right: 20px;
+}
+
+.telegram-float.sticky {
+  box-shadow: rgb(38, 133, 221) 0px 0px 0px 0.00811595px;
+  left: 20px;
+}
+
+/* Fade out text smoothly */
+.floating-button.sticky .button-text {
+  opacity: 0;
+  width: 0;
+  margin: 0;
+  overflow: hidden;
+  transition: opacity 2s ease, margin-left 2s ease;
+}
+
+/* Scale icon slightly */
+.floating-button.sticky i {
+  transform: scale(2);
+  transition: transform 1s ease;
+}
+.letter {
+  display: inline-block;
+  transition: transform 1s ease, opacity 1s ease;
+}
+/* Staggered fade out effect for each letter */
+.letter.fade-out {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+@media (max-width: 768px) {
+  .floating-button.sticky {
+    left: 10px; /* Align both to left */
+    right: auto !important; /* Remove right alignment */
+  }
+
+  .telegram-float.sticky {
+    bottom: 10rem; /* Telegram higher */
+  }
+
+  .whatsapp-float.sticky {
+    bottom: calc(10rem - 25px - 60px); /* WhatsApp 25px lower */
+    left: 10px; /* Force same left alignment */
+    right: auto !important; /* Remove right */
+  }
 }

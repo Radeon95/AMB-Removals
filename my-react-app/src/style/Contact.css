@@ -304,3 +304,8 @@
     transform: translateY(0);
   }
 }
+/* No text for pages other than home */
+.floating-button.no-text .button-text {
+  display: none;
+}
+

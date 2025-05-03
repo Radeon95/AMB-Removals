@@ -190,3 +190,37 @@ button[type="submit"]:hover {
     padding: 0.5rem 1rem;
   }
 }
+.popup-message {
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  animation: fadeOut 0.5s ease-in-out 2.5s forwards;
+  position: fixed;
+  height: auto;
+  top: 0;
+  width: 30%;
+  z-index: 1000;
+  justify-self: anchor-center;
+}
+
+.popup-message.success {
+  background-color: #4caf50; /* Green for success */
+}
+
+.popup-message.error {
+  background-color: #f56c6c; /* Red for error */
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+/* No text for pages other than home */
+.floating-button.no-text .button-text {
+  display: none;
+}

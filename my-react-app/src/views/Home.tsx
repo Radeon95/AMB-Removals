@@ -1,7 +1,10 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import "../style/Home.css";
-// import "./Home.css"; // Move your styles here or use module CSS
+import React, { lazy, Suspense } from "react";
+import { useMultiIntersectionObserver } from "../hooks/useMultiIntersectionObserver";
+
+const Lightbox = lazy(() => import("./Lightbox"));
 
 const images = import.meta.glob("/src/assets/galery/*.{jpg,jpeg,png,webp}", {
   eager: true,
@@ -13,13 +16,21 @@ const Home = () => {
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(
     null
   );
-  const [lightboxActive, setLightboxActive] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
 
+  const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0);
   const mainGalleryRef = useRef<HTMLDivElement | null>(null);
   const mainImagesRef = useRef<(HTMLImageElement | null)[]>([]);
-  const contentRefs = useRef<(HTMLDivElement | null)[]>([]); // ✅ service card refs
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const contentHeights = useRef<number[]>([]);
+
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  // Intersection observer for main images and thumbnails
+  const { refs: mainImageRefs, visibleIndexes: mainVisible } =
+    useMultiIntersectionObserver<HTMLImageElement>(galleryImages.length);
+  const { refs: thumbRefs, visibleIndexes: thumbVisible } =
+    useMultiIntersectionObserver<HTMLImageElement>(galleryImages.length);
+
   useEffect(() => {
     contentRefs.current.forEach((el, index) => {
       if (el) {
@@ -30,22 +41,20 @@ const Home = () => {
 
   const toggleCard = (index: number) => {
     if (expandedCardIndex === index) {
-      // collapsing
       const el = contentRefs.current[index];
       if (el) {
-        el.style.maxHeight = `${el.scrollHeight}px`; // set to current height
+        el.style.maxHeight = `${el.scrollHeight}px`;
         requestAnimationFrame(() => {
-          el.style.maxHeight = "96px"; // then collapse to base height
+          el.style.maxHeight = "96px";
         });
       }
-      setTimeout(() => setExpandedCardIndex(null), 100); // match CSS transition time
+      setTimeout(() => setExpandedCardIndex(null), 100);
     } else {
-      // expanding
       setExpandedCardIndex(index);
       const el = contentRefs.current[index];
       if (el) {
         requestAnimationFrame(() => {
-          el.style.maxHeight = `${el.scrollHeight + 20}px`; // expand
+          el.style.maxHeight = `${el.scrollHeight + 20}px`;
         });
       }
     }
@@ -53,37 +62,34 @@ const Home = () => {
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
-    setLightboxActive(true);
   };
 
   const scrollToImage = (index: number) => {
-    const container = mainGalleryRef.current;
     const targetImage = mainImagesRef.current[index];
-    if (container && targetImage) {
-      const scrollOffset = targetImage.offsetLeft - container.offsetLeft;
-      container.scrollTo({ left: scrollOffset, behavior: "smooth" });
+    if (targetImage) {
+      targetImage.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+      setCurrentGalleryIndex(index);
     }
   };
 
   const scrollGallery = (direction: "left" | "right") => {
     const total = galleryImages.length;
-    let newIndex = lightboxIndex;
+    let newIndex = currentGalleryIndex;
+
     if (direction === "left") {
-      newIndex = (newIndex - 1 + total) % total;
+      newIndex = (currentGalleryIndex - 1 + total) % total;
     } else {
-      newIndex = (newIndex + 1) % total;
+      newIndex = (currentGalleryIndex + 1) % total;
     }
+
+    setCurrentGalleryIndex(newIndex);
     scrollToImage(newIndex);
-    setLightboxIndex(newIndex);
   };
 
-  // ✅ Optional autoplay
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       scrollGallery("right");
-  //     }, 5000);
-  //     return () => clearInterval(interval);
-  //   }, []);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
@@ -109,18 +115,12 @@ const Home = () => {
   ];
 
   const sustainabilityItems = [
-    {
-      image: "/Why us/furniture_removals.png",
-    },
+    { image: "/Why us/furniture_removals.png" },
     { image: "/Why us/box-pack.png" },
     { image: "/Why us/bubblewrap.png" },
-    {
-      image: "/Why us/paper_packing.png",
-    },
+    { image: "/Why us/paper_packing.png" },
     { image: "/Why us/Box-packing.png" },
-    {
-      image: "/Why us/wardrobe_boxes.png",
-    },
+    { image: "/Why us/wardrobe_boxes.png" },
   ];
 
   const services = [
@@ -133,13 +133,12 @@ const Home = () => {
           Our expert house moving team is here to make your move smooth,
           efficient, and hassle-free from start to finish.
           <br />
-          We offer:
           <ul>
             <li>Fully trained and experienced movers</li>
             <li>High-quality packing materials and secure packaging</li>
             <li>Disassembly and reassembly of furniture</li>
-            <li>scheduling to suit your needs</li>
-            <li>pricing with no hidden fees</li>
+            <li>Scheduling to suit your needs</li>
+            <li>Pricing with no hidden fees</li>
           </ul>
         </>
       ),
@@ -152,7 +151,6 @@ const Home = () => {
           Relocating your office? We specialize in efficient, organized, and
           secure office moves to minimize downtime.
           <br />
-          We offer:
           <ul>
             <li>Handling of IT equipment and sensitive documents</li>
             <li>Reassembly of desks and furniture</li>
@@ -169,7 +167,6 @@ const Home = () => {
         <>
           Our packing service saves you time and ensures safety.
           <br />
-          We offer:
           <ul>
             <li>Full or partial packing options</li>
             <li>Boxes, bubble wrap, and tape</li>
@@ -181,17 +178,33 @@ const Home = () => {
     },
   ];
 
+  //Button animation!!
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       <Helmet>
         <title>AMB Removals - Fast & Secure Moving Services</title>
+
         <meta
           name="description"
           content="Professional moving company offering home and office relocation with care."
         />
         <meta
           property="og:title"
-          content="Home - Fast & Secure Moving Services"
+          content="AMB Removals - Fast & Secure Moving Services"
         />
         <meta
           property="og:description"
@@ -199,28 +212,129 @@ const Home = () => {
         />
         <meta
           property="og:image"
-          content="https://yourdomain.com/images/van.jpg"
+          content="https://yourdomain.com/images/social-share.jpg"
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="AMB Removals - Fast & Secure Moving Services"
+        />
+        <meta
+          name="twitter:description"
+          content="We pack, move, and unpack — your stress-free move starts here!"
+        />
+        <meta
+          name="twitter:image"
+          content="https://yourdomain.com/images/social-share.jpg"
+        />
+        <link rel="canonical" href="https://yourdomain.com/" />
+
+        <script type="application/ld+json">
+          {`
+    {
+      "@context": "https://schema.org",
+      "@type": "MovingCompany",
+      "name": "AMB Removals Limited",
+      "url": "https://yourdomain.com",
+      "logo": "https://yourdomain.com/images/logo.png",
+      "description": "Professional moving company offering home and office relocation with care.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "UK"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+44 1234 567890",
+        "contactType": "customer service"
+      }
+    }
+    `}
+        </script>
+        <style>
+          {`
+            .hero-section {
+              min-height: 50vh;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: #f5f5f5;
+            }
+            .gallery-scroll {
+              display: flex;
+              overflow-x: auto;
+              scroll-behavior: smooth;
+            }
+            .gallery-image {
+              flex: 0 0 auto;
+              min-width: 200px;
+              min-height: 200px;
+              background-color: #eee;
+            }
+          `}
+        </style>
       </Helmet>
 
       <div className="home-container">
-        {/* Hero */}
         <div className="hero-section">
           <div className="hero-content">
             <h1>Welcome to AMB Removals Limited!</h1>
             <p>From A to B, Stress Free!</p>
           </div>
+          {/* Floating WhatsApp Button */}
+          <a
+            href="https://wa.me/447853451275"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`floating-button whatsapp-float ${
+              isScrolled ? "sticky" : ""
+            }`}
+          >
+            <i className="fa-brands fa-whatsapp"></i>
+            <span className="button-text">
+              {"WhatsApp".split("").map((letter, idx) => (
+                <span
+                  key={idx}
+                  className={`letter ${isScrolled ? "fade-out" : ""}`}
+                  style={{ transitionDelay: `${idx * 50}ms` }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </span>
+          </a>
+
+          {/* Floating Telegram Button */}
+          <a
+            href="https://t.me/YourTelegramUsername"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`floating-button telegram-float ${
+              isScrolled ? "sticky" : ""
+            }`}
+          >
+            <i className="fa-brands fa-telegram"></i>
+            <span className="button-text">
+              {"Telegram".split("").map((letter, idx) => (
+                <span
+                  key={idx}
+                  className={`letter ${isScrolled ? "fade-out" : ""}`}
+                  style={{ transitionDelay: `${idx * 50}ms` }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </span>
+          </a>
         </div>
 
-        {/* Services */}
         <section className="section services-section">
           <h2 className="section-title">Our services</h2>
           <div className="service-cards">
             {services.map((service, index) => {
               const isExpanded = expandedCardIndex === index;
-              //   const contentHeight =
-              //     contentRefs.current[index]?.scrollHeight || 96;
-
               return (
                 <div
                   key={index}
@@ -229,7 +343,6 @@ const Home = () => {
                 >
                   <div className="el-icon">{service.icon}</div>
                   <h3>{service.title}</h3>
-
                   <div
                     className={`clamped-text-wrapper ${
                       isExpanded ? "expanded" : ""
@@ -250,7 +363,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Sustainability */}
         <section className="section why-us-section">
           <h2 className="section-title">What makes us sustainable?</h2>
           <div className="sustainability-cards">
@@ -258,7 +370,7 @@ const Home = () => {
               <div className="feature-card" key={index}>
                 <img
                   src={item.image}
-                  //   alt={item.text}    SORT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                  alt={`Sustainability item ${index + 1}`}
                   className="sustain-icon"
                 />
               </div>
@@ -266,12 +378,12 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Gallery */}
         <section className="section gallery-section">
           <h2 className="section-title">Gallery</h2>
           <div className="gallery-wrapper">
             <button
               className="nav-arrow left"
+              aria-label="Previous image"
               onClick={() => scrollGallery("left")}
             >
               &#10094;
@@ -280,10 +392,11 @@ const Home = () => {
               {galleryImages.map((img, index) => (
                 <img
                   key={`main-${index}`}
-                  src={img}
+                  src={mainVisible.includes(index) ? img : undefined}
                   alt={`Gallery image ${index + 1}`}
                   loading="lazy"
                   ref={(el) => {
+                    mainImageRefs.current[index] = el;
                     mainImagesRef.current[index] = el;
                   }}
                   onClick={() => openLightbox(index)}
@@ -293,6 +406,7 @@ const Home = () => {
             </div>
             <button
               className="nav-arrow right"
+              aria-label="Next image"
               onClick={() => scrollGallery("right")}
             >
               &#10095;
@@ -303,26 +417,30 @@ const Home = () => {
             {galleryImages.map((img, index) => (
               <img
                 key={`thumb-${index}`}
-                src={img}
+                src={thumbVisible.includes(index) ? img : undefined}
                 alt={`Thumbnail ${index + 1}`}
                 className={`thumbnail ${
-                  index === lightboxIndex ? "active" : ""
+                  index === currentGalleryIndex ? "active" : ""
                 }`}
                 onClick={() => scrollToImage(index)}
+                ref={(el) => {
+                  thumbRefs.current[index] = el;
+                }}
               />
             ))}
           </div>
 
-          {lightboxActive && (
-            <div className="lightbox" onClick={() => setLightboxActive(false)}>
-              <img
-                src={galleryImages[lightboxIndex]}
-                alt="Zoomed gallery image"
-                loading="lazy"
+          {lightboxIndex !== null && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Lightbox
+                images={galleryImages}
+                startIndex={lightboxIndex}
+                onClose={() => setLightboxIndex(null)}
               />
-            </div>
+            </Suspense>
           )}
         </section>
+
         <section className="section faq-section">
           <h2 className="section-title">Frequently Asked Questions</h2>
           <div className="faq-container">
@@ -358,7 +476,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="cta-section">
           <h2>Ready for moving?</h2>
           <button

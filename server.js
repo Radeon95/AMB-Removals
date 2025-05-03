@@ -1,3 +1,4 @@
+// server.js at root level
 import express from "express";
 import cors from "cors";
 import fs from "fs";
@@ -11,13 +12,12 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 👇 this MUST find the correct "dist" folder location
-const distPath = path.join(__dirname, "./dist");
+// ✅ Now correctly points to your React build folder
+const distPath = path.join(__dirname, "my-react-app", "dist");
 
-// Serve static files
 app.use(express.static(distPath));
 
-// API route to receive the form
+// API to receive quote form
 app.post("/submit-quote", (req, res) => {
   const formData = req.body;
   const filename = `quote-${
@@ -44,13 +44,12 @@ app.post("/submit-quote", (req, res) => {
   );
 });
 
-// ✅ Correct catch-all handler
+// React Router fallback
 app.get("*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
-// Dynamic PORT for Render
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });

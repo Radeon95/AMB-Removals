@@ -1,12 +1,12 @@
 import React from "react";
-import "../style/FaqSection.css"; // Reference to your custom CSS
+import styles from "../style/FaqSection.module.css"; // Use CSS module
 
 const FaqSection: React.FC = () => {
   return (
-    <div className="card">
+    <div className={styles.card}>
       <h1>Frequently Asked Questions</h1>
 
-      <details className="info">
+      <details className={styles.info}>
         <summary>How quickly can you organize a move?</summary>
         <p>
           Depending on the complexity and volume of work, we can organize a move
@@ -14,7 +14,7 @@ const FaqSection: React.FC = () => {
         </p>
       </details>
 
-      <details className="warning">
+      <details className={styles.warning}>
         <summary>Do you work on weekends and holidays?</summary>
         <p>
           Yes, we work without days off, including holidays. However, a
@@ -22,7 +22,7 @@ const FaqSection: React.FC = () => {
         </p>
       </details>
 
-      <details className="alert">
+      <details className={styles.alert}>
         <summary>Do you provide guarantees for your services?</summary>
         <p>
           Yes, we provide guarantees for all our services. In case of damage to

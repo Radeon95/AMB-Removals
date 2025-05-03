@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "../style/Quote.css";
+import styles from "../style/Quote.module.css";
 import { Helmet } from "react-helmet-async";
 
 const propertyTypes = [
@@ -224,12 +224,16 @@ const Quote: React.FC = () => {
         <i className="fa-brands fa-telegram"></i>
       </a>
 
-      <div className="introImage">
+      <div className={styles["introImage"]}>
         <h2>About Your Move...</h2>
       </div>
-      <div className="quote-container">
+      <div className={styles["quote-container"]}>
         {message && (
-          <div className={`popup-message ${isSuccess ? "success" : "error"}`}>
+          <div
+            className={`${styles["popup-message"]} ${
+              isSuccess ? styles["success"] : styles["error"]
+            }`}
+          >
             {message}
           </div>
         )}
@@ -240,11 +244,11 @@ const Quote: React.FC = () => {
           noValidate
         >
           {/* Personal Details */}
-          <div className="form-block">
+          <div className={styles["form-block"]}>
             {personalFields.map((field) => (
-              <div className="form-group" key={field.model}>
+              <div className={styles["form-group"]} key={field.model}>
                 <label>{field.label}</label>
-                <span className="input">
+                <span className={styles["input"]}>
                   <input
                     name={field.model}
                     value={form[field.model]}
@@ -255,18 +259,18 @@ const Quote: React.FC = () => {
                   <span></span>
                 </span>
                 {errors[field.model] && (
-                  <span className="error">{errors[field.model]}</span>
+                  <span className={styles["error"]}>{errors[field.model]}</span>
                 )}
               </div>
             ))}
           </div>
 
           {/* Moving From */}
-          <div className="form-block">
+          <div className={styles["form-block"]}>
             <h3>Moving From...</h3>
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>Postcode *</label>
-              <span className="input">
+              <span className={styles["input"]}>
                 <input
                   name="fromPostcode"
                   value={form.fromPostcode}
@@ -276,13 +280,13 @@ const Quote: React.FC = () => {
                 <span></span>
               </span>
               {errors.fromPostcode && (
-                <span className="error">{errors.fromPostcode}</span>
+                <span className={styles["error"]}>{errors.fromPostcode}</span>
               )}
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>Street Address</label>
-              <span className="input">
+              <span className={styles["input"]}>
                 <input
                   name="fromAddress"
                   value={form.fromAddress}
@@ -293,9 +297,9 @@ const Quote: React.FC = () => {
               </span>
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>City</label>
-              <span className="input">
+              <span className={styles["input"]}>
                 <input
                   name="fromCity"
                   value={form.fromCity}
@@ -306,9 +310,9 @@ const Quote: React.FC = () => {
               </span>
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>Property Type *</label>
-              <span className="selection">
+              <span className={styles["selection"]}>
                 <select
                   name="fromPropertyType"
                   value={form.fromPropertyType}
@@ -324,17 +328,19 @@ const Quote: React.FC = () => {
                 <span></span>
               </span>
               {errors.fromPropertyType && (
-                <span className="error">{errors.fromPropertyType}</span>
+                <span className={styles["error"]}>
+                  {errors.fromPropertyType}
+                </span>
               )}
             </div>
           </div>
 
           {/* Moving To */}
-          <div className="form-block">
+          <div className={styles["form-block"]}>
             <h3>Moving To...</h3>
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>Postcode *</label>
-              <span className="input">
+              <span className={styles["input"]}>
                 <input
                   name="toPostcode"
                   value={form.toPostcode}
@@ -344,13 +350,13 @@ const Quote: React.FC = () => {
                 <span></span>
               </span>
               {errors.toPostcode && (
-                <span className="error">{errors.toPostcode}</span>
+                <span className={styles["error"]}>{errors.toPostcode}</span>
               )}
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>Street Address</label>
-              <span className="input">
+              <span className={styles["input"]}>
                 <input
                   name="toAddress"
                   value={form.toAddress}
@@ -361,9 +367,9 @@ const Quote: React.FC = () => {
               </span>
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>City</label>
-              <span className="input">
+              <span className={styles["input"]}>
                 <input
                   name="toCity"
                   value={form.toCity}
@@ -374,9 +380,9 @@ const Quote: React.FC = () => {
               </span>
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>Property Type *</label>
-              <span className="selection">
+              <span className={styles["selection"]}>
                 <select
                   name="toPropertyType"
                   value={form.toPropertyType}
@@ -392,16 +398,16 @@ const Quote: React.FC = () => {
                 <span></span>
               </span>
               {errors.toPropertyType && (
-                <span className="error">{errors.toPropertyType}</span>
+                <span className={styles["error"]}>{errors.toPropertyType}</span>
               )}
             </div>
           </div>
 
           {/* Package and Additional Details */}
-          <div className="form-block">
-            <div className="form-group">
+          <div className={styles["form-block"]}>
+            <div className={styles["form-group"]}>
               <label>Package</label>
-              <span className="selection">
+              <span className={styles["selection"]}>
                 <select
                   name="package"
                   value={form.package}
@@ -417,9 +423,9 @@ const Quote: React.FC = () => {
                 <span></span>
               </span>
             </div>
-            <div className="form-group">
+            <div className={styles["form-group"]}>
               <label>Any other details</label>
-              <span className="input1">
+              <span className={styles["input1"]}>
                 <textarea
                   name="details"
                   value={form.details}
@@ -432,7 +438,7 @@ const Quote: React.FC = () => {
           </div>
 
           {/* Consent */}
-          <div className="form-group checkbox">
+          <div className={`${styles["form-group"]} ${styles["checkbox"]}`}>
             <label>
               <input
                 type="checkbox"
@@ -442,11 +448,13 @@ const Quote: React.FC = () => {
               />
               I agree to be contacted and my data processed.
             </label>
-            {errors.consent && <span className="error">{errors.consent}</span>}
+            {errors.consent && (
+              <span className={styles["error"]}>{errors.consent}</span>
+            )}
           </div>
 
           {/* Submit */}
-          <div className="form-actions">
+          <div className={styles["form-actions"]}>
             <button type="submit">Submit</button>
           </div>
         </form>

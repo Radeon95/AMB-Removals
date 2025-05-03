@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import "../style/Gallery.css";
+import styles from "../style/Gallery.module.css"; // Correct path
 
 interface LightboxProps {
   images: string[];
@@ -15,6 +15,7 @@ const Lightbox: React.FC<LightboxProps> = ({ images, startIndex, onClose }) => {
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768);
   }, []);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") scroll("right");
@@ -50,25 +51,27 @@ const Lightbox: React.FC<LightboxProps> = ({ images, startIndex, onClose }) => {
 
   return (
     <div
-      className="lightbox"
+      className={styles.lightbox} // ✅ Module CSS
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label={`Image ${index + 1} of ${images.length}`}
-      tabIndex={0} // allows keyboard users to focus the lightbox container
+      tabIndex={0}
     >
       <img
         src={images[index]}
         alt={`Gallery image ${index + 1}`}
-        className="lightbox-image"
+        className={styles.lightboxImage} // ✅ Module CSS
         loading="lazy"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       />
       {!isMobile && (
-        <div className="lightbox-controls">
+        <div className={styles.lightboxControls}>
+          {" "}
+          {/* ✅ Module CSS */}
           <button
-            aria-label="Previouse image"
+            aria-label="Previous image"
             onClick={(e) => {
               e.stopPropagation();
               scroll("left");
@@ -80,7 +83,6 @@ const Lightbox: React.FC<LightboxProps> = ({ images, startIndex, onClose }) => {
             aria-label="Next image"
             onClick={(e) => {
               e.stopPropagation();
-
               scroll("right");
             }}
           >

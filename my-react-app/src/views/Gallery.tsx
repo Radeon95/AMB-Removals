@@ -1,4 +1,4 @@
-import "../style/Gallery.css";
+import styles from "../style/Gallery.module.css";
 import React, { lazy, Suspense, useState } from "react";
 
 const Lightbox = lazy(() => import("./Lightbox"));
@@ -17,7 +17,7 @@ const Gallery: React.FC = () => {
     "Gallery image";
 
   return (
-    <div className="gallery">
+    <div className={styles.gallery}>
       <a
         href="https://wa.me/447853451275"
         target="_blank"
@@ -36,12 +36,12 @@ const Gallery: React.FC = () => {
         <i className="fa-brands fa-telegram"></i>
       </a>
 
-      <h2 className="text-blk headingText">Gallery</h2>
-      <div className="image-grid">
+      <h2 className={styles.headingText}>Gallery</h2>
+      <div className={styles["image-grid"]}>
         {galleryImages.map((img, index) => (
           <div
             key={index}
-            className="image-wrapper"
+            className={styles["image-wrapper"]}
             onClick={() => setLightboxIndex(index)}
           >
             <img src={img} alt={getAltText(img)} loading="lazy" />

@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet-async";
+import styles from "../style/Contact.module.css"; // CSS module import
+import FaqSection from "./FaqSection";
 
-// Extend the Window interface to include onRecaptchaVerify and onRecaptchaExpired
+// Extend the Window interface to include reCAPTCHA callbacks
 declare global {
   interface Window {
     onRecaptchaVerify: (token: string) => void;
     onRecaptchaExpired: () => void;
   }
 }
-import { Helmet } from "react-helmet-async";
-import "../style/Contact.css";
-import "./FaqSection";
-import FaqSection from "./FaqSection";
 
 const initialFormState = {
   name: "",
@@ -33,9 +32,8 @@ const Contact: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [recaptchaToken, setRecaptchaToken] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
-  // default to open first FAQ
 
-  // reCAPTCHA Setup
+  // reCAPTCHA setup
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://www.google.com/recaptcha/api.js";
@@ -43,43 +41,24 @@ const Contact: React.FC = () => {
     script.defer = true;
     document.body.appendChild(script);
 
-    window.onRecaptchaVerify = (token: string) => {
-      setRecaptchaToken(token);
-    };
-
-    window.onRecaptchaExpired = () => {
-      setRecaptchaToken("");
-    };
+    window.onRecaptchaVerify = (token: string) => setRecaptchaToken(token);
+    window.onRecaptchaExpired = () => setRecaptchaToken("");
   }, []);
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-
-    if (!form.name || form.name.length < 2) {
+    if (!form.name || form.name.length < 2)
       newErrors.name = "Name must be at least 2 characters";
-    }
-
     const phoneRegex = /^(\+44|0)[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$/;
-    if (!form.phone || !phoneRegex.test(form.phone)) {
+    if (!form.phone || !phoneRegex.test(form.phone))
       newErrors.phone = "Please enter a valid phone number";
-    }
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!form.email || !emailRegex.test(form.email)) {
+    if (!form.email || !emailRegex.test(form.email))
       newErrors.email = "Please enter a valid email";
-    }
-
-    if (!form.service) {
-      newErrors.service = "Please select a service";
-    }
-
-    if (!form.message || form.message.length < 10) {
+    if (!form.service) newErrors.service = "Please select a service";
+    if (!form.message || form.message.length < 10)
       newErrors.message = "Message must be at least 10 characters";
-    }
-
-    if (!form.agreement) {
-      newErrors.agreement = "You must agree to the terms";
-    }
+    if (!form.agreement) newErrors.agreement = "You must agree to the terms";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -90,10 +69,7 @@ const Contact: React.FC = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value, type } = e.target as
-      | HTMLInputElement
-      | HTMLTextAreaElement
-      | HTMLSelectElement;
+    const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
     setForm((prev) => ({
       ...prev,
@@ -103,12 +79,10 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validate()) {
       alert("Please correct the form errors.");
       return;
     }
-
     if (!recaptchaToken) {
       alert("Please verify that you are not a robot.");
       return;
@@ -128,29 +102,12 @@ const Contact: React.FC = () => {
       alert("Your request has been submitted successfully!");
       setForm(initialFormState);
       setErrors({});
-      if (formRef.current) formRef.current.reset();
+      formRef.current?.reset();
     } catch (err) {
       alert("An error occurred. Please try again.");
       console.error(err);
     }
   };
-  //   const faqItems = [
-  //     {
-  //       question: "How quickly can you organize a move?",
-  //       answer:
-  //         "Depending on the complexity and volume of work, we can organize a move within 1–3 days from the order confirmation.",
-  //     },
-  //     {
-  //       question: "Do you work on weekends and holidays?",
-  //       answer:
-  //         "Yes, we work without days off, including holidays. However, a surcharge may apply on holidays.",
-  //     },
-  //     {
-  //       question: "Do you provide guarantees for your services?",
-  //       answer:
-  //         "Yes, we provide guarantees for all our services. In case of damage to items during the move, we compensate for the damage according to the contract.",
-  //     },
-  //   ];
 
   return (
     <>
@@ -182,18 +139,18 @@ const Contact: React.FC = () => {
           content="https://yourdomain.com/images/social-share.jpg"
         />
         <link rel="canonical" href="https://yourdomain.com/contact" />
-
         <script type="application/ld+json">
           {`
-    {
-      "@context": "https://schema.org",
-      "@type": "ContactPage",
-      "url": "https://yourdomain.com/contact",
-      "contactType": "Customer Support"
-    }
-    `}
+            {
+              "@context": "https://schema.org",
+              "@type": "ContactPage",
+              "url": "https://yourdomain.com/contact",
+              "contactType": "Customer Support"
+            }
+          `}
         </script>
       </Helmet>
+
       <a
         href="https://wa.me/447853451275"
         target="_blank"
@@ -202,7 +159,6 @@ const Contact: React.FC = () => {
       >
         <i className="fa-brands fa-whatsapp"></i>
       </a>
-
       <a
         href="https://t.me/YourTelegramUsername"
         target="_blank"
@@ -212,9 +168,9 @@ const Contact: React.FC = () => {
         <i className="fa-brands fa-telegram"></i>
       </a>
 
-      <div className="contact-container">
-        <div className="contact-banner">
-          <div className="banner-content">
+      <div className={styles["contact-container"]}>
+        <div className={styles["contact-banner"]}>
+          <div className={styles["banner-content"]}>
             <h1>Contact Us</h1>
             <p>
               We are ready to answer all your questions and help with organizing
@@ -223,10 +179,10 @@ const Contact: React.FC = () => {
           </div>
         </div>
 
-        <div className="section contact-section">
-          <div className="contact-info">
+        <div className={`${styles.section} ${styles["contact-section"]}`}>
+          <div className={styles["contact-info"]}>
             <h2>Contact Information</h2>
-            <div className="info-item">
+            <div className={styles["info-item"]}>
               <i className="fas fa-map-marker-alt"></i>
               <div>
                 <h3>Address</h3>
@@ -234,7 +190,7 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            <div className="info-item">
+            <div className={styles["info-item"]}>
               <i className="fas fa-phone"></i>
               <div>
                 <h3>Phone</h3>
@@ -243,19 +199,19 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            <div className="info-item">
+            <div className={styles["info-item"]}>
               <i className="fas fa-envelope"></i>
               <div>
                 <h3>Email</h3>
                 <a href="mailto:info@bmaremovals.com">info@bmaremovals.com</a>
-                <br></br>
+                <br />
                 <a href="mailto:support@ambremovals.com">
                   support@bmaremovals.com
                 </a>
               </div>
             </div>
 
-            <div className="info-item">
+            <div className={styles["info-item"]}>
               <i className="fas fa-clock"></i>
               <div>
                 <h3>Working Hours</h3>
@@ -264,9 +220,9 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            <div className="social-links">
+            <div className={styles["social-links"]}>
               <h3>Follow Us</h3>
-              <div className="social-icons">
+              <div className={styles["social-icons"]}>
                 <a
                   href="https://www.facebook.com/yourfacebook"
                   target="_blank"
@@ -299,11 +255,11 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          <div className="contact-form">
+          <div className={styles["contact-form"]}>
             <h2>Submit a Request</h2>
             <p>Fill out the form below, and we will contact you shortly</p>
             <form onSubmit={handleSubmit} ref={formRef} noValidate>
-              <div className="form-group">
+              <div className={styles["form-group"]}>
                 <label>Your Name</label>
                 <input
                   name="name"
@@ -311,9 +267,11 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   placeholder="Enter your name"
                 />
-                {errors.name && <span className="error">{errors.name}</span>}
+                {errors.name && (
+                  <span className={styles.error}>{errors.name}</span>
+                )}
               </div>
-              <div className="form-group">
+              <div className={styles["form-group"]}>
                 <label>Phone</label>
                 <input
                   name="phone"
@@ -321,9 +279,11 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   placeholder="+44 (___) ___-____"
                 />
-                {errors.phone && <span className="error">{errors.phone}</span>}
+                {errors.phone && (
+                  <span className={styles.error}>{errors.phone}</span>
+                )}
               </div>
-              <div className="form-group">
+              <div className={styles["form-group"]}>
                 <label>Email</label>
                 <input
                   name="email"
@@ -331,9 +291,11 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   placeholder="example@email.com"
                 />
-                {errors.email && <span className="error">{errors.email}</span>}
+                {errors.email && (
+                  <span className={styles.error}>{errors.email}</span>
+                )}
               </div>
-              <div className="form-group">
+              <div className={styles["form-group"]}>
                 <label>Select Service</label>
                 <select
                   name="service"
@@ -348,10 +310,10 @@ const Contact: React.FC = () => {
                   ))}
                 </select>
                 {errors.service && (
-                  <span className="error">{errors.service}</span>
+                  <span className={styles.error}>{errors.service}</span>
                 )}
               </div>
-              <div className="form-group">
+              <div className={styles["form-group"]}>
                 <label>Message</label>
                 <textarea
                   name="message"
@@ -360,10 +322,10 @@ const Contact: React.FC = () => {
                   rows={4}
                 />
                 {errors.message && (
-                  <span className="error">{errors.message}</span>
+                  <span className={styles.error}>{errors.message}</span>
                 )}
               </div>
-              <div className="form-group checkbox">
+              <div className={`${styles["form-group"]} ${styles.checkbox}`}>
                 <label>
                   <input
                     type="checkbox"
@@ -374,19 +336,19 @@ const Contact: React.FC = () => {
                   I agree to the processing of personal data
                 </label>
                 {errors.agreement && (
-                  <span className="error">{errors.agreement}</span>
+                  <span className={styles.error}>{errors.agreement}</span>
                 )}
               </div>
-              <div className="form-group">
+              <div className={styles["form-group"]}>
                 <div
                   className="g-recaptcha"
                   data-sitekey="6Ley_t8qAAAAAMEC_NXvJ_fTDtZp1yxtD-spbLVa"
                   data-callback="onRecaptchaVerify"
                   data-expired-callback="onRecaptchaExpired"
                 ></div>
-                <div className="recaptcha-note">I'm not a robot</div>
+                <div className={styles["recaptcha-note"]}>I'm not a robot</div>
               </div>
-              <div className="form-actions">
+              <div className={styles["form-actions"]}>
                 <button type="submit">Submit Request</button>
                 <button type="button" onClick={() => setForm(initialFormState)}>
                   Reset
@@ -396,9 +358,9 @@ const Contact: React.FC = () => {
           </div>
         </div>
 
-        <div className="map-section">
-          <h2 className="section-title">Find Us on the Map</h2>
-          <div className="map-container">
+        <div className={styles["map-section"]}>
+          <h2 className={styles["section-title"]}>Find Us on the Map</h2>
+          <div className={styles["map-container"]}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d268442.914637112!2d-1.614417196211072!3d52.53376236482253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4d4ae70306a7fed%3A0xbfcfb2d2858c6b73!2sBMA%20Removals%20Limited!5e0!3m2!1sen!2s!4v1740991540006!5m2!1sen!2s"
               width="100%"
@@ -410,6 +372,7 @@ const Contact: React.FC = () => {
             ></iframe>
           </div>
         </div>
+
         <FaqSection />
       </div>
     </>

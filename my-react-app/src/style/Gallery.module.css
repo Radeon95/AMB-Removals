@@ -63,7 +63,7 @@
   align-items: center;
 }
 
-.lightbox-image {
+.lightboxImage {
   width: auto;
   max-width: 90vw;
   max-height: 80vh;
@@ -71,13 +71,13 @@
   border-radius: 10px;
 }
 
-.lightbox-controls {
+.lightboxControls {
   margin-top: 10px;
   display: flex;
   gap: 2rem;
 }
 
-.lightbox-controls button {
+.lightboxControls button {
   background: white;
   border: none;
   font-size: 2rem;
@@ -89,14 +89,14 @@
 
 /* RESPONSIVE FIXES */
 @media (min-width: 1024px) {
-  .lightbox-image {
+  .lightboxImage {
     max-width: 80vw;
     max-height: 90vh;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1132px) {
-  .lightbox-controls button {
+  .lightboxControls button {
     font-size: 3rem;
   }
 }
@@ -106,7 +106,7 @@
     height: 200px;
   }
 
-  .lightbox-controls {
+  .lightboxControls {
     display: none;
   }
 }

@@ -1,7 +1,6 @@
 // src/views/About.tsx
 import { Helmet } from "react-helmet-async";
-// import { useRef } from "react";
-import "../style/About.css";
+import styles from "../style/About.module.css";
 
 const partnerLogos = [
   "https://www.pinlocal.com/front/images/pinlocal_logo.png",
@@ -16,9 +15,10 @@ const partnerAltTexts = [
   "Compare My Move Logo",
   "Move Assured Logo",
 ];
+
 const About = () => {
   return (
-    <div className="about-page">
+    <div className={styles["about-section"]}>
       <a
         href="https://wa.me/yourwatsapp"
         target="_blank"
@@ -36,6 +36,7 @@ const About = () => {
       >
         <i className="fa-brands fa-telegram"></i>
       </a>
+
       <Helmet>
         <title>About Us - MBA Removals</title>
         <meta
@@ -67,25 +68,25 @@ const About = () => {
 
         <script type="application/ld+json">
           {`
-    {
-      "@context": "https://schema.org",
-      "@type": "AboutPage",
-      "name": "About MBA Removals",
-      "url": "https://yourdomain.com/about"
-    }
-    `}
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "About MBA Removals",
+            "url": "https://yourdomain.com/about"
+          }
+          `}
         </script>
       </Helmet>
 
-      <section className="banner">
-        <div className="banner-content">
+      <section className={styles.banner}>
+        <div className={styles["banner-content"]}>
           <h1>About MBA Removals</h1>
           <p>Reliable. Professional. Trusted Moving Services Across the UK</p>
         </div>
       </section>
 
-      <section className="about-section">
-        <div className="container">
+      <section className={styles.aboutSection}>
+        <div className={styles.container}>
           <h2>Why Choose MBA Removals?</h2>
           <p>
             MBA Removals is a family-run removal company in Glasgow that serves
@@ -96,43 +97,43 @@ const About = () => {
         </div>
       </section>
 
-      <section className="features-section">
+      <section className={styles["features-section"]}>
         <h2>Why Choose Us</h2>
-        <div className="features">
-          <div className="feature-card">
-            <i className="fas fa-users fa-2x feature-icon"></i>
+        <div className={styles.features}>
+          <div className={styles["feature-card"]}>
+            <i className="fas fa-users fa-2x"></i>
             <h3>Experienced Team</h3>
             <p>Our trained movers bring efficiency and care to every move.</p>
           </div>
-          <div className="feature-card">
-            <i className="fas fa-shield-alt fa-2x feature-icon"></i>
+          <div className={styles["feature-card"]}>
+            <i className="fas fa-shield-alt fa-2x"></i>
             <h3>Fully Insured</h3>
             <p>We are fully licensed and insured for your peace of mind.</p>
           </div>
-          <div className="feature-card">
-            <i className="fas fa-tags fa-2x feature-icon"></i>
+          <div className={styles["feature-card"]}>
+            <i className="fas fa-tags fa-2x"></i>
             <h3>Affordable Rates</h3>
             <p>Transparent pricing with no hidden fees or surprises.</p>
           </div>
         </div>
       </section>
 
-      <section className="values-section">
+      <section className={styles["values-section"]}>
         <h2>Our Values</h2>
-        <div className="values-container">
-          <div className="value-card">
+        <div className={styles["values-container"]}>
+          <div className={styles["value-card"]}>
             <i className="far fa-star fa-2x"></i>
             <h3>Quality</h3>
             <p>
               We strive for excellence and guarantee high service standards.
             </p>
           </div>
-          <div className="value-card">
+          <div className={styles["value-card"]}>
             <i className="fas fa-user fa-2x"></i>
             <h3>Customer Focus</h3>
             <p>We always prioritize our customers and exceed expectations.</p>
           </div>
-          <div className="value-card">
+          <div className={styles["value-card"]}>
             <i className="fas fa-lightbulb fa-2x"></i>
             <h3>Development</h3>
             <p>We continuously improve through innovation and technology.</p>
@@ -140,20 +141,20 @@ const About = () => {
         </div>
       </section>
 
-      <section className="achievements-section">
+      <section className={styles["achievements-section"]}>
         <h2>Our Achievements</h2>
-        <div className="achievements-container">
-          <div className="achievement">
-            <i className="fas fa-truck  fa-fade fa-2x" />
+        <div className={styles["achievements-container"]}>
+          <div className={styles.achievement}>
+            <i className="fas fa-truck fa-fade fa-2x" />
             <strong>100+</strong>
             <p>Successful Moves</p>
           </div>
-          <div className="achievement">
+          <div className={styles.achievement}>
             <i className="fa-solid fa-fade fa-face-grin-stars fa-2x" />
             <strong>98%</strong>
             <p>Satisfied Clients</p>
           </div>
-          <div className="achievement">
+          <div className={styles.achievement}>
             <i className="fas fa-trophy fa-fade fa-2x" />
             <strong>100+</strong>
             <p>Successful Moves</p>
@@ -161,26 +162,26 @@ const About = () => {
         </div>
       </section>
 
-      <section className="partners-section">
+      <section className={styles["partners-section"]}>
         <h2>Our Trusted Partners</h2>
-        <div className="partners-logos">
+        <div className={styles["partners-logos"]}>
           {partnerLogos.map((logo, index) => (
             <img
               key={index}
               src={logo}
               alt={partnerAltTexts[index]}
-              className="partner-logo"
+              className={styles["partner-logo"]}
             />
           ))}
         </div>
       </section>
 
-      <section className="cta-section">
+      <section className={styles["cta-section"]}>
         <h2>Ready to Become Our Client?</h2>
         <p>Contact us today and find out how we can help with your move</p>
         <a
           href="/contact"
-          className="cta-button"
+          className={styles["cta-button"]}
           aria-label="Contact MBA Removals"
         >
           Contact Us

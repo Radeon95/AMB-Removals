@@ -99,7 +99,7 @@
 }
 
 .social-icons a {
-  color: #2868ea;
+  color: #1e2025;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,4 +308,3 @@
 .floating-button.no-text .button-text {
   display: none;
 }
-

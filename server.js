@@ -48,7 +48,7 @@ app.post("/submit-quote", (req, res) => {
 });
 
 // ✅ React Router fallback for any route not matched above
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 

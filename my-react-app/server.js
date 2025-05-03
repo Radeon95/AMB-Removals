@@ -45,7 +45,7 @@ app.post("/submit-quote", (req, res) => {
 });
 
 // For any other route, serve React's index.html (supporting React Router)
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 

@@ -8,17 +8,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Helper to get __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Because we're running from my-react-app/ and dist is also inside my-react-app/
 const distPath = path.join(__dirname, "dist");
 
-// Serve static files
+// Serve static files FIRST
 app.use(express.static(distPath));
 
-// API route to receive form data and save it
+// API route
 app.post("/submit-quote", (req, res) => {
   const formData = req.body;
   const filename = `quote-${
@@ -27,7 +25,6 @@ app.post("/submit-quote", (req, res) => {
 
   const formsDir = path.join(__dirname, "forms");
 
-  // Create forms folder if it doesn't exist
   if (!fs.existsSync(formsDir)) {
     fs.mkdirSync(formsDir);
   }
@@ -47,12 +44,11 @@ app.post("/submit-quote", (req, res) => {
   );
 });
 
-// For all other routes, serve index.html (for React Router SPA)
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(distPath, "index.html"));
+// 🟢 SAFER CATCH-ALL FOR REACT ROUTER:
+app.get("*", function (req, res) {
+  res.sendFile(path.resolve(distPath, "index.html"));
 });
 
-// Start server
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

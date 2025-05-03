@@ -24,7 +24,7 @@ app.post("/submit-quote", (req, res) => {
 
   const formsDir = path.join(__dirname, "forms");
 
-  // Create forms folder if not exists
+  // Create forms folder if it doesn't exist
   if (!fs.existsSync(formsDir)) {
     fs.mkdirSync(formsDir);
   }
@@ -44,8 +44,8 @@ app.post("/submit-quote", (req, res) => {
   );
 });
 
-// For any other route, serve React's index.html (supporting React Router)
-app.get("/*", (req, res) => {
+// ✅ Updated wildcard route (modern Express safe)
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 

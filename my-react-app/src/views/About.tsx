@@ -20,7 +20,7 @@ const About = () => {
   return (
     <div className="about-page">
       <a
-        href="https://wa.me/447853451275"
+        href="https://wa.me/yourwatsapp"
         target="_blank"
         rel="noopener noreferrer"
         className="floating-button whatsapp-float sticky no-text"
@@ -37,15 +37,15 @@ const About = () => {
         <i className="fa-brands fa-telegram"></i>
       </a>
       <Helmet>
-        <title>About Us - AMB Removals</title>
+        <title>About Us - MBA Removals</title>
         <meta
           name="description"
-          content="Learn more about AMB Removals, your trusted moving company."
+          content="Learn more about MBA Removals, your trusted moving company."
         />
-        <meta property="og:title" content="About Us - AMB Removals" />
+        <meta property="og:title" content="About Us - MBA Removals" />
         <meta
           property="og:description"
-          content="Discover why AMB Removals is the right choice for your move."
+          content="Discover why MBA Removals is the right choice for your move."
         />
         <meta
           property="og:image"
@@ -54,10 +54,10 @@ const About = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yourdomain.com/about" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Us - AMB Removals" />
+        <meta name="twitter:title" content="About Us - MBA Removals" />
         <meta
           name="twitter:description"
-          content="Discover why AMB Removals is the right choice for your move."
+          content="Discover why MBA Removals is the right choice for your move."
         />
         <meta
           name="twitter:image"
@@ -70,7 +70,7 @@ const About = () => {
     {
       "@context": "https://schema.org",
       "@type": "AboutPage",
-      "name": "About AMB Removals",
+      "name": "About MBA Removals",
       "url": "https://yourdomain.com/about"
     }
     `}
@@ -79,19 +79,19 @@ const About = () => {
 
       <section className="banner">
         <div className="banner-content">
-          <h1>About AMB Removals</h1>
+          <h1>About MBA Removals</h1>
           <p>Reliable. Professional. Trusted Moving Services Across the UK</p>
         </div>
       </section>
 
       <section className="about-section">
         <div className="container">
-          <h2>Why Choose AMB Removals?</h2>
+          <h2>Why Choose MBA Removals?</h2>
           <p>
-            AMB Removals is a family-run removal company in Leicester that
-            serves clients across the UK. We pride ourselves on offering a
-            personal, reliable, and fully insured service. Our experienced team
-            ensures your move is stress-free, whether local or long-distance.
+            MBA Removals is a family-run removal company in Glasgow that serves
+            clients across the UK. We pride ourselves on offering a personal,
+            reliable, and fully insured service. Our experienced team ensures
+            your move is stress-free, whether local or long-distance.
           </p>
         </div>
       </section>
@@ -181,7 +181,7 @@ const About = () => {
         <a
           href="/contact"
           className="cta-button"
-          aria-label="Contact AMB Removals"
+          aria-label="Contact MBA Removals"
         >
           Contact Us
         </a>

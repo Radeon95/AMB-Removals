@@ -5,7 +5,7 @@ const blogContent: Record<string, { title: string; content: string }> = {
   "moving-tips-2025": {
     title: "Top Moving Tips for 2025",
     content:
-      "Plan early, label boxes, and hire professionals like AMB Removals for a stress-free move.",
+      "Plan early, label boxes, and hire professionals like MBA Removals for a stress-free move.",
   },
   "how-to-pack-fragile-items": {
     title: "How to Pack Fragile Items Safely",

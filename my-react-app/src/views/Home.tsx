@@ -196,7 +196,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>AMB Removals - Fast & Secure Moving Services</title>
+        <title>MBA Removals - Fast & Secure Moving Services</title>
 
         <meta
           name="description"
@@ -204,7 +204,7 @@ const Home = () => {
         />
         <meta
           property="og:title"
-          content="AMB Removals - Fast & Secure Moving Services"
+          content="MBA Removals - Fast & Secure Moving Services"
         />
         <meta
           property="og:description"
@@ -219,7 +219,7 @@ const Home = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="AMB Removals - Fast & Secure Moving Services"
+          content="MBA Removals - Fast & Secure Moving Services"
         />
         <meta
           name="twitter:description"
@@ -236,7 +236,7 @@ const Home = () => {
     {
       "@context": "https://schema.org",
       "@type": "MovingCompany",
-      "name": "AMB Removals Limited",
+      "name": "MBA Removals Limited",
       "url": "https://yourdomain.com",
       "logo": "https://yourdomain.com/images/logo.png",
       "description": "Professional moving company offering home and office relocation with care.",
@@ -280,7 +280,7 @@ const Home = () => {
       <div className="home-container">
         <div className="hero-section">
           <div className="hero-content">
-            <h1>Welcome to AMB Removals Limited!</h1>
+            <h1>Welcome to MBA Removals Limited!</h1>
             <p>From A to B, Stress Free!</p>
           </div>
           {/* Floating WhatsApp Button */}

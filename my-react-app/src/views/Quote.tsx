@@ -157,14 +157,14 @@ const Quote: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Request a Moving Quote - AMB Removals</title>
+        <title>Request a Moving Quote - MBA Removals</title>
         <meta
           name="description"
-          content="Get a personalized quote for your home or office move with AMB Removals."
+          content="Get a personalized quote for your home or office move with MBA Removals."
         />
         <meta
           property="og:title"
-          content="Request a Moving Quote - AMB Removals"
+          content="Request a Moving Quote - MBA Removals"
         />
         <meta
           property="og:description"
@@ -179,7 +179,7 @@ const Quote: React.FC = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Request a Moving Quote - AMB Removals"
+          content="Request a Moving Quote - MBA Removals"
         />
         <meta
           name="twitter:description"
@@ -199,7 +199,7 @@ const Quote: React.FC = () => {
       "serviceType": "Moving Service Quote Request",
       "provider": {
         "@type": "MovingCompany",
-        "name": "AMB Removals Limited",
+        "name": "MBA Removals Limited",
         "url": "https://yourdomain.com"
       }
     }

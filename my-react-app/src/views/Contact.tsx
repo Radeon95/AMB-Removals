@@ -155,12 +155,12 @@ const Contact: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Contact AMB Removals</title>
+        <title>Contact MBA Removals</title>
         <meta
           name="description"
-          content="Get in touch with AMB Removals for any inquiries about your move."
+          content="Get in touch with MBA Removals for any inquiries about your move."
         />
-        <meta property="og:title" content="Contact AMB Removals" />
+        <meta property="og:title" content="Contact MBA Removals" />
         <meta
           property="og:description"
           content="We're here to help with all your moving needs."
@@ -172,7 +172,7 @@ const Contact: React.FC = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yourdomain.com/contact" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Contact AMB Removals" />
+        <meta name="twitter:title" content="Contact MBA Removals" />
         <meta
           name="twitter:description"
           content="We're here to help with all your moving needs."
@@ -230,7 +230,7 @@ const Contact: React.FC = () => {
               <i className="fas fa-map-marker-alt"></i>
               <div>
                 <h3>Address</h3>
-                <p>42 The Crescent, Blaby, Leicester LE8 4FN</p>
+                <p>42 Nidderdale, Glasgow G1 4FN</p>
               </div>
             </div>
 
@@ -238,8 +238,8 @@ const Contact: React.FC = () => {
               <i className="fas fa-phone"></i>
               <div>
                 <h3>Phone</h3>
-                <p>0 (116) 456-0653</p>
-                <p>+44 (785) 345-1275</p>
+                <p>0 (116) 456-8363</p>
+                <p>+44 (785) 345-7520</p>
               </div>
             </div>
 
@@ -247,10 +247,10 @@ const Contact: React.FC = () => {
               <i className="fas fa-envelope"></i>
               <div>
                 <h3>Email</h3>
-                <a href="mailto:info@ambremovals.com">info@ambremovals.com</a>
+                <a href="mailto:info@bmaremovals.com">info@bmaremovals.com</a>
                 <br></br>
                 <a href="mailto:support@ambremovals.com">
-                  support@ambremovals.com
+                  support@bmaremovals.com
                 </a>
               </div>
             </div>
@@ -268,28 +268,28 @@ const Contact: React.FC = () => {
               <h3>Follow Us</h3>
               <div className="social-icons">
                 <a
-                  href="https://www.facebook.com/ambremovalslimited"
+                  href="https://www.facebook.com/yourfacebook"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <i className="fab fa-facebook-f" />
                 </a>
                 <a
-                  href="https://www.instagram.com/ambremovals/"
+                  href="https://www.instagram.com/yourinstagram/"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <i className="fab fa-instagram" />
                 </a>
                 <a
-                  href="https://t.me/ambremovals"
+                  href="https://t.me/yourtelegram"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <i className="fab fa-telegram-plane" />
                 </a>
                 <a
-                  href="https://wa.me/message/CHLGJLYSNVZLE1"
+                  href="https://wa.me/message/yourwhatsapp"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -400,7 +400,7 @@ const Contact: React.FC = () => {
           <h2 className="section-title">Find Us on the Map</h2>
           <div className="map-container">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d268442.914637112!2d-1.614417196211072!3d52.53376236482253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4d4ae70306a7fed%3A0xbfcfb2d2858c6b73!2sAMB%20Removals%20Limited!5e0!3m2!1sen!2s!4v1740991540006!5m2!1sen!2s"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d268442.914637112!2d-1.614417196211072!3d52.53376236482253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4d4ae70306a7fed%3A0xbfcfb2d2858c6b73!2sBMA%20Removals%20Limited!5e0!3m2!1sen!2s!4v1740991540006!5m2!1sen!2s"
               width="100%"
               height="600"
               style={{ border: 0 }}

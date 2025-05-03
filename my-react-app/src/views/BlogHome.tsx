@@ -35,7 +35,7 @@ const BlogHome = () => {
       </a>
 
       <div className="blog-container">
-        <h1>AMB Removals Blog</h1>
+        <h1>MBA Removals Blog</h1>
         <ul>
           {blogPosts.map((post) => (
             <li key={post.slug}>

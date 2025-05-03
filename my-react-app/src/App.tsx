@@ -61,6 +61,7 @@ const App = () => {
       document.removeEventListener("click", handleOutsideClick);
       window.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobileMenuOpen]);
 
   // Removed unused handleNavClick function
@@ -69,7 +70,7 @@ const App = () => {
     <HelmetProvider>
       <Helmet>
         <title>Moving Company</title>
-        <meta name="AMB Removals" content="AMB Removals" />
+        <meta name="MBA Removals" content="MBA Removals" />
         <meta name="theme-color" content="#ffffff" />
       </Helmet>
 
@@ -79,7 +80,7 @@ const App = () => {
             <div className="logo">
               <Link to="/">
                 <img
-                  alt="AMB Removals Limited"
+                  alt="MBA Removals Limited"
                   className="logo"
                   src="/src/assets/amb.png"
                 />
@@ -200,26 +201,26 @@ const App = () => {
         <footer className="el-footer app-footer">
           <div className="footer-content">
             <div className="footer-info">
-              <h3>AMB Removals Limited</h3>
+              <h3>MBA Removals Limited</h3>
               <p>Professional Moving Service</p>
-              <p>2025 AMB Removals Limited. All rights reserved.</p>
+              <p>2025 MBA Removals Limited. All rights reserved.</p>
               <div className="social-links">
                 <a
-                  href="https://www.facebook.com/ambremovalslimited"
+                  href="https://www.facebook.com/yourfacebook"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <i className="fab fa-facebook-f" />
                 </a>
                 <a
-                  href="https://www.instagram.com/ambremovals"
+                  href="https://www.instagram.com/yourinstagram"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <i className="fab fa-instagram" />
                 </a>
                 <a
-                  href="https://t.me/ambremovals"
+                  href="https://t.me/yourtelegram"
                   title="Telegram"
                   target="_blank"
                   rel="noreferrer"
@@ -232,14 +233,13 @@ const App = () => {
             <div className="footer-contact">
               <h4>Contact</h4>
               <p>
-                <i className="fas fa-map-marker-alt" /> Leicester, United
-                Kingdom
+                <i className="fas fa-map-marker-alt" /> Glasgow , United Kingdom
               </p>
               <p>
-                <i className="fas fa-phone" /> 0 (116) 456-0653
+                <i className="fas fa-phone" /> 0 (116) 456-8363
               </p>
               <p>
-                <i className="fas fa-envelope" /> info@ambremovals.com
+                <i className="fas fa-envelope" /> info@bmaremovals.com
               </p>
             </div>
 

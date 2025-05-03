@@ -12,12 +12,13 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Now correctly points to your React build folder
+// ✅ Path to the built React app inside my-react-app/dist
 const distPath = path.join(__dirname, "my-react-app", "dist");
 
+// ✅ Serve the static files
 app.use(express.static(distPath));
 
-// API to receive quote form
+// ✅ API endpoint for form submissions
 app.post("/submit-quote", (req, res) => {
   const formData = req.body;
   const filename = `quote-${
@@ -25,6 +26,8 @@ app.post("/submit-quote", (req, res) => {
   }-${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
 
   const formsDir = path.join(__dirname, "forms");
+
+  // Create the forms directory if it doesn't exist
   if (!fs.existsSync(formsDir)) {
     fs.mkdirSync(formsDir);
   }
@@ -34,7 +37,7 @@ app.post("/submit-quote", (req, res) => {
     JSON.stringify(formData, null, 2),
     (err) => {
       if (err) {
-        console.error("Failed to save the form:", err);
+        console.error("❌ Failed to save the form:", err);
         return res
           .status(500)
           .json({ success: false, message: "Failed to save the form." });
@@ -44,11 +47,12 @@ app.post("/submit-quote", (req, res) => {
   );
 });
 
-// React Router fallback
+// ✅ React Router fallback for any route not matched above
 app.get("*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
+// ✅ Use dynamic port (Render provides PORT)
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);

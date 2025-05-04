@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import "../style/Home.css";
 import React, { lazy, Suspense } from "react";
 import { useMultiIntersectionObserver } from "../hooks/useMultiIntersectionObserver";
+import heroImage from "../assets/AMBRemovals.jpg";
 
 const Lightbox = lazy(() => import("./Lightbox"));
 
@@ -279,7 +280,14 @@ const Home = () => {
       </Helmet>
 
       <div className="home-container">
-        <div className="hero-section">
+        <div
+          className="hero-section"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${heroImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <div className="hero-content">
             <h1>Welcome to MBA Removals Limited!</h1>
             <p>From A to B, Stress Free!</p>

@@ -19,6 +19,7 @@ import BlogHome from "./views/BlogHome";
 import BlogPost from "./views/BlogPost";
 
 import "./App.css";
+import logo from "./assets/amb.png";
 
 const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,11 +80,7 @@ const App = () => {
           <div className="header-inner">
             <div className="logo">
               <Link to="/">
-                <img
-                  alt="MBA Removals Limited"
-                  className="logo"
-                  src="/src/assets/amb.png"
-                />
+                <img alt="MBA Removals Limited" className="logo" src={logo} />
               </Link>
             </div>
             <a
